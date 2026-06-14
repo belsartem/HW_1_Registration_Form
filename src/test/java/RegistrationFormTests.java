@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.ScrollDirection.DOWN;
+import static com.codeborne.selenide.ScrollOptions.direction;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -18,7 +20,7 @@ public class RegistrationFormTests extends TestBase {
         $("#firstName").setValue("Test Name");
         $("#lastName").setValue("Test Last Name");
         $("#userEmail").setValue("test@test.com");
-        $("#genterWrapper").$$("label").findBy(text("Male")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("0123456789");
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption("October");
@@ -26,8 +28,8 @@ public class RegistrationFormTests extends TestBase {
         $(".react-datepicker__year-select").selectOption("1995");
         $(".react-datepicker__day--001:not(.react-datepicker__day--outside-month)").click();
         $("#subjectsInput").setValue("computer").pressEnter();
-        $("#hobbiesWrapper").$$("label").findBy(text("Sports")).click();
-        $("#hobbiesWrapper").$$("label").findBy(text("Music")).click();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
         $("#uploadPicture").uploadFromClasspath("images/scottish_cat.png");
         $("#uploadPicture").shouldHave(value("cat.png"));
         $("#currentAddress").setValue("1st street");
@@ -62,7 +64,7 @@ public class RegistrationFormTests extends TestBase {
 
         $("#firstName").setValue("Test Name");
         $("#lastName").setValue("Test Last Name");
-        $("#genterWrapper").$$("label").findBy(text("Male")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("0123456789");
 
         $("#submit").click();
@@ -81,7 +83,7 @@ public class RegistrationFormTests extends TestBase {
             document.querySelector('footer')?.remove();
             """);
 
-        $("#submit").click();
+        $("#submit").scroll(direction(DOWN).distance(100)).click();
 
         $(".modal-body").shouldNot(exist);
         $("#firstName").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
@@ -98,7 +100,7 @@ public class RegistrationFormTests extends TestBase {
             """);
 
         $("#lastName").setValue("Test Last Name");
-        $("#genterWrapper").$$("label").findBy(text("Male")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("0123456789");
 
         $("#submit").click();
@@ -116,10 +118,10 @@ public class RegistrationFormTests extends TestBase {
             """);
 
         $("#firstName").setValue("Test Name");
-        $("#genterWrapper").$$("label").findBy(text("Male")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("0123456789");
 
-        $("#submit").click();
+        $("#submit").scroll(direction(DOWN).distance(100)).click();
 
         $(".modal-body").shouldNot(exist);
         $("#lastName").shouldHave(cssValue("border-color", "rgb(220, 53, 69)"));
